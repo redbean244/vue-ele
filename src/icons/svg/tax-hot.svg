@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57 (83077) - https://sketch.com -->
+    <title>icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="20" cy="20" r="20"></circle>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页" transform="translate(-787.000000, -3063.000000)">
+            <g id="热门搜索" transform="translate(767.000000, 3023.000000)">
+                <g transform="translate(20.000000, 40.000000)" id="icon">
+                    <g>
+                        <g id="形状结合">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <circle stroke="#0091FF" stroke-width="2" cx="20" cy="20" r="19"></circle>
+                            <path d="M20,0 C20.9475066,0 21.8796241,0.0658885986 22.7920206,0.193333918 C26.6629692,5.25605742 29,11.8236164 29,19 C29,27.2505027 25.9110281,34.696291 20.9526636,39.977065 C20.6367983,39.9925188 20.3192728,40 20,40 C19.0649697,40 18.1449259,39.9358352 17.2440317,39.8116685 C12.7579682,34.6708472 10,27.6897737 10,20 C10,12.3100637 12.7580848,5.32885759 17.2452897,0.18844489 C18.145608,0.0641172877 19.0653163,0 20,0 Z" stroke="#0091FF" stroke-width="2" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                        </g>
+                        <path d="M5.61609277,8.58512187 C9.88241138,11.7524417 15.0565136,13.496433 20.5,13.496433 C25.6766159,13.496433 30.6119347,11.9199261 34.7597844,9.03415724 C31.1857743,4.62805752 25.813282,2 20,2 C14.3933889,2 9.19230347,4.44325626 5.61609277,8.58512187 Z" id="形状结合" stroke="#0091FF" stroke-width="2"></path>
+                        <path d="M5.61609277,33.5851219 C9.88241138,36.7524417 15.0565136,38.496433 20.5,38.496433 C25.6766159,38.496433 30.6119347,36.9199261 34.7597844,34.0341572 C31.1857743,29.6280575 25.813282,27 20,27 C14.3933889,27 9.19230347,29.4432563 5.61609277,33.5851219 Z" id="形状结合" stroke="#0091FF" stroke-width="2" transform="translate(20.185591, 32.748216) scale(1, -1) translate(-20.185591, -32.748216) "></path>
+                        <path d="M1,20.5 L39.0028199,20.5" id="直线-2" stroke="#0091FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
