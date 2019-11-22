@@ -3,7 +3,7 @@ import router from '@/router';
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: process.env.VUE_APP_BASE_API + 'v1', // url = base url + request url
   timeout: 5000 // request timeout
   // withCredentials: true // send cookies when cross-domain requests
 });
@@ -57,57 +57,57 @@ service.interceptors.response.use(
   },
   err => {
     // 请求失败时，即status!=200
-    if (err && err.response) {
-      switch (err.response.status) {
-        case 302:
-          break;
-        case 400:
-          err.message = '错误请求';
-          break;
-        case 401:
-          err.message = '登录已超时，请重新登录';
-          router.push('/login');
-          break;
-        case 403:
-          err.message = '禁止访问';
-          break;
-        case 404:
-          err.message = '请求错误,未找到该资源';
-          break;
-        case 405:
-          err.message = '请求方法未允许';
-          break;
-        case 408:
-          err.message = '请求超时';
-          break;
-        case 413:
-          err.message = '上传文件过大';
-          break;
-        case 500:
-          err.message = '服务器端出错';
-          break;
-        case 501:
-          err.message = '网络未实现';
-          break;
-        case 502:
-          err.message = '网络错误';
-          break;
-        case 503:
-          err.message = '服务不可用';
-          break;
-        case 504:
-          err.message = '网络超时';
-          break;
-        case 505:
-          err.message = 'http版本不支持该请求';
-          break;
-        default:
-          err.message = `连接错误,${err.response.msg}`;
-      }
-    } else {
-      err.message = '网络连接已断开，请稍后重试';
-      router.push('/login');
-    }
+    // if (err && err.response) {
+    //   switch (err.response.status) {
+    //     case 302:
+    //       break;
+    //     case 400:
+    //       err.message = '错误请求';
+    //       break;
+    //     case 401:
+    //       err.message = '登录已超时，请重新登录';
+    //       router.push('/login');
+    //       break;
+    //     case 403:
+    //       err.message = '禁止访问';
+    //       break;
+    //     case 404:
+    //       err.message = '请求错误,未找到该资源';
+    //       break;
+    //     case 405:
+    //       err.message = '请求方法未允许';
+    //       break;
+    //     case 408:
+    //       err.message = '请求超时';
+    //       break;
+    //     case 413:
+    //       err.message = '上传文件过大';
+    //       break;
+    //     case 500:
+    //       err.message = '服务器端出错';
+    //       break;
+    //     case 501:
+    //       err.message = '网络未实现';
+    //       break;
+    //     case 502:
+    //       err.message = '网络错误';
+    //       break;
+    //     case 503:
+    //       err.message = '服务不可用';
+    //       break;
+    //     case 504:
+    //       err.message = '网络超时';
+    //       break;
+    //     case 505:
+    //       err.message = 'http版本不支持该请求';
+    //       break;
+    //     default:
+    //       err.message = `连接错误,${err.response.msg}`;
+    //   }
+    // } else {
+    //   err.message = '网络连接已断开，请稍后重试';
+    //   router.push('/login');
+    // }
 
     return Promise.reject(err);
   }

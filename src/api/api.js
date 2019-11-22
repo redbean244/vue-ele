@@ -1,9 +1,9 @@
 import request from '@/utils/request';
 // import qs from 'qs'
 
-export function getCode(params) {
+export function cities(params) {
   return request({
-    url: '/sys/contractor/getCode',
+    url: '/cities',
     method: 'get',
     params
   });
