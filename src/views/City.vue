@@ -1,5 +1,5 @@
 <template>
-  <div class="city">
+  <div class="city" >
     <van-search
       v-model="searchValue"
       placeholder="请输入城市名或拼音"
@@ -15,30 +15,38 @@
       <section class="panel section">
         <h6 class="panel-title">当前定位</h6>
         <div class="panel-content">
-          <span>{{guessCity}}</span>
+          <router-link :to="'/address/'+guessCityid">
+            <span>{{guessCity}}</span>
+          </router-link>
           <span>重新定位</span>
         </div>
       </section>
       <section class="section">
-        <van-index-bar v-if="groupcity" :index-list="indexList">
+        <van-index-bar v-if="groupcity" :index-list="indexList" :sticky="false">
           <div class="panel" v-if="hotCity">
             <van-index-anchor index="#" :style="{opacity:0,height:0}" />
             <h6 class="panel-title">热门城市</h6>
             <div class="panel-lists">
-              <span v-for="(item,index) in hotCity" :key="index" class="city-tag">{{item.name}}</span>
+              <router-link v-for="(item,index) in hotCity" :key="index" :to="'/address/'+item.id">
+                <span class="city-tag">{{item.name}}</span>
+              </router-link>
             </div>
           </div>
 
           <div v-for="(value,key,index) in sortgroupcity" :key="index">
             <van-index-anchor :index="key" />
-            <van-cell v-for="(item,vIndex) in value" :title="item.name" :key="vIndex" />
+            <router-link v-for="(item,vIndex) in value" :key="vIndex" :to="'/address/'+item.id">
+              <van-cell :title="item.name" />
+            </router-link>
           </div>
         </van-index-bar>
       </section>
     </div>
-    <div ref="wrapper" :style="`height:${windowHeight-54}px`">
-      <van-list :finished="true" finished-text="没有更多了" v-show="searchValue">
-        <van-cell v-for="item in searchCity" :key="item.id" :title="item.name" />
+    <div ref="wrapper" :style="searchValue?`height:${windowHeight-54}px`:''">
+      <van-list :finished="true" finished-text="没有更多了"  v-show="searchValue">
+        <router-link v-for="item in searchCity" :key="item.id" :to="'/address/'+item.id">
+          <van-cell :title="item.name" />
+        </router-link>
       </van-list>
     </div>
   </div>
@@ -108,7 +116,7 @@ export default {
     this.init();
     this.windowHeight = window.innerHeight;
   },
-  mounted() {
+  activated() {
     this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: 3,
@@ -163,6 +171,7 @@ export default {
           this.searchCity = this.searchCity.concat(city);
         }
       }
+      this.scroll.refresh();
     }
   }
 };
