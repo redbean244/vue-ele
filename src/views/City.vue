@@ -11,7 +11,7 @@
     >
       <div slot="action" @click="onCancle">取消</div>
     </van-search>
-    <div class="city-container" v-show="!searchValue">
+    <div class="city-container" v-if="!searchValue" :style="`height:${windowHeight-54}px`">
       <section class="panel section">
         <h6 class="panel-title">当前定位</h6>
         <div class="panel-content">
@@ -28,6 +28,7 @@
               <span v-for="(item,index) in hotCity" :key="index" class="city-tag">{{item.name}}</span>
             </div>
           </div>
+
           <div v-for="(value,key,index) in sortgroupcity" :key="index">
             <van-index-anchor :index="key" />
             <van-cell v-for="(item,vIndex) in value" :title="item.name" :key="vIndex" />
@@ -35,13 +36,16 @@
         </van-index-bar>
       </section>
     </div>
-    <van-list :finished="true" finished-text="没有更多了" v-show="searchValue" :style="{'margin-top':'54px'}">
-      <van-cell v-for="item in searchCity" :key="item.id" :title="item.name" />
-    </van-list>
+    <div ref="wrapper" :style="`height:${windowHeight-54}px`">
+      <van-list :finished="true" finished-text="没有更多了" v-show="searchValue">
+        <van-cell v-for="item in searchCity" :key="item.id" :title="item.name" />
+      </van-list>
+    </div>
   </div>
 </template>
 
 <script>
+import BScroll from 'better-scroll';
 import { cities } from '@/api/api.js';
 export default {
   name: '',
@@ -76,12 +80,14 @@ export default {
         'Y',
         'Z'
       ],
+      windowHeight: 0,
       searchValue: '', // 搜索框的值
       searchCity: '', // 搜索出来的城市
       guessCity: '', // 定位城市
       guessCityid: '', // 定位城市id
       hotCity: [], // 热门城市
-      groupcity: []// 所有城市
+      groupcity: [], // 所有城市
+      scroll: null
     };
   },
   computed: {
@@ -100,6 +106,16 @@ export default {
   },
   created() {
     this.init();
+    this.windowHeight = window.innerHeight;
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        probeType: 3,
+        click: true,
+        mouseWheel: true
+      });
+    });
   },
   methods: {
     init() {
@@ -118,7 +134,9 @@ export default {
         this.groupcity = res;
       });
     },
-    onCancle() { this.searchValue = ''; },
+    onCancle() {
+      this.searchValue = '';
+    },
     onSearch() {},
     onInput() {
       // 输入拼音搜索
@@ -152,6 +170,7 @@ export default {
 <style  scoped lang='scss'>
 .city {
   background-color: #f5f5f5;
+  padding-top: 54px;
   .search-input {
     position: fixed;
     top: 0;
@@ -159,8 +178,6 @@ export default {
     width: 100%;
   }
   .city-container {
-    margin-top: 54px;
-    height: calc(100vh - 54px);
     overflow-y: scroll;
     .section {
       padding: px2rem(24);
