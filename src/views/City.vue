@@ -6,11 +6,12 @@
       show-action
       shape="round"
       @search="onSearch"
+      @input="onInput"
       class="search-input"
     >
       <div slot="action" @click="onCancle">取消</div>
     </van-search>
-    <div class="city-container">
+    <div class="city-container" v-show="!searchValue">
       <section class="panel section">
         <h6 class="panel-title">当前定位</h6>
         <div class="panel-content">
@@ -34,6 +35,9 @@
         </van-index-bar>
       </section>
     </div>
+    <van-list :finished="true" finished-text="没有更多了" v-show="searchValue" :style="{'margin-top':'54px'}">
+      <van-cell v-for="item in searchCity" :key="item.id" :title="item.name" />
+    </van-list>
   </div>
 </template>
 
@@ -72,11 +76,12 @@ export default {
         'Y',
         'Z'
       ],
-      searchValue: '',
-      guessCity: '',
-      guessCityid: '',
-      hotCity: [],
-      groupcity: []
+      searchValue: '', // 搜索框的值
+      searchCity: '', // 搜索出来的城市
+      guessCity: '', // 定位城市
+      guessCityid: '', // 定位城市id
+      hotCity: [], // 热门城市
+      groupcity: []// 所有城市
     };
   },
   computed: {
@@ -113,8 +118,34 @@ export default {
         this.groupcity = res;
       });
     },
-    onCancle() {},
-    onSearch() {}
+    onCancle() { this.searchValue = ''; },
+    onSearch() {},
+    onInput() {
+      // 输入拼音搜索
+      if (/[A-Za-z]/.test(this.searchValue)) {
+        let firstCode = this.searchValue[0];
+        if (/[a-z]/.test(firstCode)) {
+          firstCode = firstCode.toUpperCase();
+        }
+        this.searchCity = this.groupcity[firstCode];
+        if (this.searchValue.length > 1) {
+          const city = this.searchValue.toLowerCase();
+          this.searchCity = this.searchCity.filter(item => {
+            return item.pinyin.includes(city);
+          });
+        }
+      }
+      // 输入文字搜索
+      if (/[\u4e00-\u9fa5]/.test(this.searchValue)) {
+        this.searchCity = [];
+        for (const key in this.groupcity) {
+          const city = this.groupcity[key].filter(item => {
+            return item.name.includes(this.searchValue);
+          });
+          this.searchCity = this.searchCity.concat(city);
+        }
+      }
+    }
   }
 };
 </script>
