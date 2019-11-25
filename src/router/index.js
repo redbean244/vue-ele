@@ -20,6 +20,14 @@ const routes = [
     path: '/address/:cityid',
     name: 'Address',
     component: () => import('@/views/Address')
+  },
+  {
+    path: '/msite',
+    name: 'Msite',
+    component: () => import('@/views/Msite'),
+    meta: {
+      keepAlive: true
+    }
   }
 ];
 

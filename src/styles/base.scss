@@ -1,5 +1,5 @@
 $color:red;
-
+$Blue:#409EFF;
 @function px2rem($px) {
     @return $px * 1rem / 100;
   }

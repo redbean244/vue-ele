@@ -6,7 +6,9 @@
       right-text="管理"
       @click-left="onClickLeft"
       @click-right="onClickRight"
-    />
+    >
+      <van-icon name="cross" slot="left" />
+    </van-nav-bar>
     <van-search
       v-if="city"
       v-model="searchValue"
@@ -24,7 +26,11 @@
     </van-search>
     <div ref="wrapper" :style="`height:${windowHeight-54-46}px`">
       <van-list :finished="true" finished-text="没有了">
-        <router-link v-for="item in placelist" :key="item.id" :to="{path:'/msite', query:{geohash:item.geohash}}">
+        <router-link
+          v-for="item in placelist"
+          :key="item.id"
+          :to="{path:'/msite', query:{geohash:item.geohash}}"
+        >
           <van-cell :title="item.name" :label="item.address" />
         </router-link>
       </van-list>

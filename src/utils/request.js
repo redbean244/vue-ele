@@ -1,9 +1,8 @@
 import axios from 'axios';
-import router from '@/router';
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API + 'v1', // url = base url + request url
+  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   timeout: 5000 // request timeout
   // withCredentials: true // send cookies when cross-domain requests
 });
@@ -42,18 +41,19 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     console.log(res);
-    switch (res.code) {
-      case undefined:
-      case 0:
-        return res;
-      default:
-        // Message({
-        //   message: res.msg || 'Error',
-        //   type: 'error',
-        //   duration: 5 * 1000
-        // })
-        return Promise.reject(new Error(res.message || 'Error'));
-    }
+    // switch (res.code) {
+    //   case undefined:
+    //   case 0:
+    //     return res;
+    //   default:
+    //     // Message({
+    //     //   message: res.msg || 'Error',
+    //     //   type: 'error',
+    //     //   duration: 5 * 1000
+    //     // })
+    //     return Promise.reject(new Error(res.message || 'Error'));
+    // }
+    return res;
   },
   err => {
     // 请求失败时，即status!=200

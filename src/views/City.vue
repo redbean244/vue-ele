@@ -13,7 +13,7 @@
     </van-search>
     <div class="city-container" v-if="!searchValue" :style="`height:${windowHeight-54}px`">
       <section class="panel section">
-        <h6 class="panel-title">当前定位</h6>
+        <h6 class="panel-title"><van-icon name="location-o" />当前定位</h6>
         <div class="panel-content">
           <router-link :to="'/address/'+guessCityid">
             <span>{{guessCity}}</span>
